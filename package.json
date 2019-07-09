@@ -13,7 +13,8 @@
     "@babel/core": "7.5.0",
     "@babel/parser": "7.5.0",
     "@babel/preset-env": "7.5.2",
-    "@babel/traverse": "7.5.0"
+    "@babel/traverse": "7.5.0",
+    "resolve": "1.11.1"
   },
   "devDependencies": {}
 }

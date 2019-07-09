@@ -3,7 +3,7 @@ const path = require("path");
 const parser = require("@babel/parser"); // parses and returns AST
 const traverse = require("@babel/traverse").default; // AST walker
 const babel = require("@babel/core");
-const util = require("util");
+const resolve = require("resolve").sync;
 
 let ID = 0;
 
@@ -36,4 +36,19 @@ function createModuleInfo(filePath) {
   };
 }
 
-createModuleInfo("entry.js");
+function createDependencyGraph(entry) {
+  const entryInfo = createModuleInfo(entry);
+  const graphArr = [];
+  graphArr.push(entryInfo);
+  for (const module of graphArr) {
+    module.deps.forEach(depPath => {
+      const baseDir = path.dirname(module.filePath);
+      const moduleDepPath = resolve(depPath, { baseDir }); // /Users/username/...module.js
+      const moduleInfo = createModuleInfo(moduleDepPath);
+      graphArr.push(moduleInfo);
+    });
+  }
+  return graphArr;
+}
+
+createDependencyGraph("./entry.js");
