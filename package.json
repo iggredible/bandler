@@ -1,0 +1,19 @@
+{
+  "name": "bandler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Igor L Irianto <igoririanto@rocketmail.com>",
+  "license": "mit",
+  "dependencies": {
+    "@babel/core": "7.5.0",
+    "@babel/parser": "7.5.0",
+    "@babel/preset-env": "7.5.2",
+    "@babel/traverse": "7.5.0"
+  },
+  "devDependencies": {}
+}
