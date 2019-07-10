@@ -2,29 +2,32 @@ const fs = require("fs");
 const path = require("path");
 const parser = require("@babel/parser"); // parses and returns AST
 const traverse = require("@babel/traverse").default; // AST walker
-const babel = require("@babel/core");
-const resolve = require("resolve").sync;
+const babel = require("@babel/core"); // main babel functionality
+const resolve = require("resolve").sync; // get full path to dependencies
 
 let ID = 0;
 
+/*
+ * Given filePath, return module information
+ * Module information includes:
+ * module ID
+ * module filePath
+ * all dependencies used in the module (in array form)
+ * code inside the module
+ */
 function createModuleInfo(filePath) {
-  const content = fs.readFileSync(filePath, "utf-8"); // read entry.js content
+  const content = fs.readFileSync(filePath, "utf-8");
   const ast = parser.parse(content, {
-    // parse entry.js content
-    // create AST from content
     sourceType: "module"
   });
   const deps = [];
   traverse(ast, {
-    // traverse ast from parse, find ImportDeclaration's source.value
     ImportDeclaration: ({ node }) => {
-      deps.push(node.source.value); // append that value(s) into deps array
+      deps.push(node.source.value);
     }
   });
-  // deps now is an array containing ALL dependencies
   const id = ID++;
   const { code } = babel.transformFromAstSync(ast, null, {
-    // transfrom ast using @babel/preset-env presets - looks like CJS
     presets: ["@babel/preset-env"]
   });
 
@@ -36,19 +39,61 @@ function createModuleInfo(filePath) {
   };
 }
 
+/*
+ * Given entry path,
+ * returns an array containing information from each module
+ */
 function createDependencyGraph(entry) {
   const entryInfo = createModuleInfo(entry);
   const graphArr = [];
   graphArr.push(entryInfo);
   for (const module of graphArr) {
+    module.map = {};
     module.deps.forEach(depPath => {
       const baseDir = path.dirname(module.filePath);
-      const moduleDepPath = resolve(depPath, { baseDir }); // /Users/username/...module.js
+      const moduleDepPath = resolve(depPath, { baseDir });
       const moduleInfo = createModuleInfo(moduleDepPath);
       graphArr.push(moduleInfo);
+      module.map[depPath] = moduleInfo.id;
     });
   }
   return graphArr;
 }
 
-createDependencyGraph("./entry.js");
+/*
+ * Given an array containing information from each module
+ * return a bundled code to run the modules
+ */
+function pack(graph) {
+  const moduleArgArr = graph.map(module => {
+    return `${module.id}: {
+      factory: (exports, require) => {
+        ${module.code}
+      },
+      map: ${JSON.stringify(module.map)}
+    }`;
+  });
+  const iifeBundler = `(function(modules){
+    const require = id => {
+      const {factory, map} = modules[id];
+      const localRequire = requireDeclarationName => require(map[requireDeclarationName]); 
+      const module = {exports: {}};
+
+      factory(module.exports, localRequire); 
+      return module.exports; 
+    } 
+    require(0);
+  })({${moduleArgArr.join()}})
+  `;
+  return iifeBundler;
+}
+
+console.log("***** Copy code below and paste into browser *****");
+
+/* create dependency graph */
+const graph = createDependencyGraph("./entry.js");
+/* create bundle based on dependency graph */
+const bundle = pack(graph);
+
+console.log(bundle);
+console.log("***** Copy code above and paste into browser *****");
