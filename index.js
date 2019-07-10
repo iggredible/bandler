@@ -92,7 +92,7 @@ function pack(graph) {
 console.log("***** Copy code below and paste into browser *****");
 
 /* create dependency graph */
-const graph = createDependencyGraph("./example/entry.js");
+const graph = createDependencyGraph("./example1/entry.js");
 /* create bundle based on dependency graph */
 const bundle = pack(graph);
 
