@@ -3,7 +3,6 @@ const path = require("path");
 const parser = require("@babel/parser"); // parses and returns AST
 const traverse = require("@babel/traverse").default; // AST walker
 const babel = require("@babel/core"); // main babel functionality
-const resolve = require("resolve").sync; // get full path to dependencies
 
 let ID = 0;
 
@@ -51,8 +50,10 @@ function createDependencyGraph(entry) {
     module.map = {};
     module.deps.forEach(depPath => {
       const baseDir = path.dirname(module.filePath);
-      const moduleDepPath = resolve(depPath, { baseDir });
-      const moduleInfo = createModuleInfo(moduleDepPath);
+      const baseModuleDir = path.join(baseDir, depPath);
+      const absPath = path.resolve(baseModuleDir);
+
+      const moduleInfo = createModuleInfo(absPath);
       graphArr.push(moduleInfo);
       module.map[depPath] = moduleInfo.id;
     });
@@ -91,7 +92,7 @@ function pack(graph) {
 console.log("***** Copy code below and paste into browser *****");
 
 /* create dependency graph */
-const graph = createDependencyGraph("./entry.js");
+const graph = createDependencyGraph("./example/entry.js");
 /* create bundle based on dependency graph */
 const bundle = pack(graph);
 
