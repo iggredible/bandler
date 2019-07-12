@@ -116,15 +116,13 @@ function pack(graph) {
   return iifeBundler;
 }
 
-console.log("***** Copy code below and paste into browser *****");
+const bundler = entryFilePath => {
+  const graph = createDependencyGraph(entryFilePath);
+  const bundle = pack(graph);
+  console.log("***** Copy code below and paste into browser *****");
+  console.log(bundle);
+  console.log("***** Copy code above and paste into browser *****");
+  return;
+};
 
-/* FIRST, create dependency graph */
-const graph = createDependencyGraph("./example2/entry.js");
-
-/* SECOND, create bundle based on dependency graph */
-const bundle = pack(graph);
-
-console.log(bundle);
-console.log("***** Copy code above and paste into browser *****");
-
-// createModuleInfo("./example2/entry.js");
+module.exports = bundler;
