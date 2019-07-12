@@ -12,9 +12,11 @@ This project is inspired by [minipack](https://github.com/ronami/minipack) and [
 
 ## Usage
 
-1. Install dependencies `npm i`
+Run `node ./bandler.js /direction/to/entry.js`
 
-2. This project has 2 examples. `./example1/entry.js` uses ES6 modules and `./example2/entry.js` uses CJS modules
+1. Install dependencies: `npm i`
+
+2. This project has 2 examples: `./example1/entry.js` uses ES6 modules and `./example2/entry.js` uses CJS modules
 
 3. Run either entries, for example: `node ./bandler.js ./example2/entry.js`
 
@@ -52,7 +54,7 @@ It will output the bundled code on terminal, such as this:
     map: {}
 }})
 ```
-The code above is a bundled code from example2 starting from entry. Copy/paste the code on your browser console to see the code above works _(disclaimer: it is just console.log)_. 
+The code above is a bundled code from example2 entry. Copy/paste the code on your browser console to see the code above works _(disclaimer: it is just console.log)_. 
 
 ## Contributing
 
