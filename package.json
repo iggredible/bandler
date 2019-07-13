@@ -1,7 +1,7 @@
 {
   "name": "bandler",
   "version": "1.0.0",
-  "description": "Lightweight bundler capable of bundling CJS and ES6",
+  "description": "Lightweight Javascript CJS and ES6 bundler",
   "main": "index.js",
   "keywords": ["bundler", "javascript", "cjs", "esm", "es6", "bundle", "modules", "module"],
   "author": "Igor L Irianto <igoririanto@rocketmail.com>",
@@ -16,7 +16,8 @@
     "detective": "5.2.0"
   },
   "devDependencies": {},
-  "bin": {
-    "bandler": "bandler.js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iggredible/bandler"
   }
 }
