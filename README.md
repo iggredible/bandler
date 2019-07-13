@@ -6,9 +6,11 @@ The simplest Javascript module bundler. Capable of bundling simple __CJS__ or __
 
 At work we use [webpack](https://github.com/webpack/webpack) and I use [rollup](https://github.com/rollup/rollup) for personal use. Up to this point, much of the bundling process is rather magical. You tell them where the entry is, designate output, and poof! Your code is [automagically](https://www.lexico.com/en/definition/automagically) bundled.
 
-I created this project mainly to teach myself how bundler works. I am hoping that others could benefit from this project, too.
+I created this project mainly to teach myself how bundler works. My hope is that others could understand how bundlers work from this project.
 
 This project is inspired by [minipack](https://github.com/ronami/minipack) and [wbpck-bundler](https://github.com/adamisntdead/wbpck-bundler), both of which accomplishes similar things. In case you're wondering, the main difference is that minipack bundles ES6 and wbpck-bundler bundles CJS. Bandler attempts to bundle *both* CJS and ES6 without additional config from user.
+
+With that being said, this project is __not__ production-ready. This is not a webpack/ rollup replacement. This is a toy bundler 🎁. You have been warned.
 
 ## Usage
 
@@ -54,7 +56,7 @@ It will output the bundled code on terminal, such as this:
     map: {}
 }})
 ```
-The code above is a bundled code from example2 entry. Copy/paste the code on your browser console to see the code above works _(disclaimer: it is just console.log)_. 
+The code above is a bundled code from example2 entry and all its dependencies. Copy/paste the code on your browser console to see the code above works _(disclaimer: it is just console.log)_. 
 
 ## Contributing
 

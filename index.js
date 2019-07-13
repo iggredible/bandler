@@ -1,18 +1,20 @@
+/* main bundler */
+
 const fs = require("fs");
 const path = require("path");
 const parser = require("@babel/parser"); // parses and returns AST
-const traverse = require("@babel/traverse").default; // AST walker
+const traverse = require("@babel/traverse").default; // walks through AST
 const babel = require("@babel/core"); // main babel functionality
 const detective = require("detective");
 let ID = 0;
 
 /*
- * Given filePath, return module information
+ * Given filePath, read and parses module, returns module information
  * Module information includes:
- * module ID
- * module filePath
- * all dependencies used in the module (in array form)
- * code inside the module
+ * - module ID
+ * - module filePath
+ * - all dependencies used in the module (in array form)
+ * - code inside the module
  */
 function createModuleInfo(filePath) {
   const content = fs.readFileSync(filePath, "utf-8");
