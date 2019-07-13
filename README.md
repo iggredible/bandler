@@ -1,6 +1,6 @@
-# Bandler
+![bandler](readme_assets/bandler_icon.png)
 
-The simplest Javascript module bundler. Capable of bundling simple __CJS__ or __ESM__ modules. 
+The simple Javascript module bundler. Capable of bundling simple __CJS__ or __ESM__ modules. 
 
 ## Why did I create this?
 
