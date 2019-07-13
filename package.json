@@ -1,7 +1,7 @@
 {
   "name": "bandler",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lightweight bundler capable of bundling CJS and ES6",
   "main": "index.js",
   "keywords": ["bundler", "javascript", "cjs", "esm", "es6", "bundle", "modules", "module"],
   "author": "Igor L Irianto <igoririanto@rocketmail.com>",
