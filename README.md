@@ -12,6 +12,11 @@ This project is inspired by [minipack](https://github.com/ronami/minipack) and [
 
 With that being said, this project is __not__ production-ready. This is not a webpack/ rollup replacement. This is a toy bundler 🎁. You have been warned.
 
+
+## Code explanation
+
+I wrote [an article](https://dev.to/iggredible/bundle-your-javascript-code-from-scratch-3dpo) explaining the code. You should check it out!
+
 ## Usage
 
 Run `node ./bandler.js /direction/to/entry.js`

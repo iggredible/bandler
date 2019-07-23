@@ -1,6 +1,6 @@
 {
   "name": "bandler",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lightweight Javascript CJS and ES6 bundler",
   "main": "index.js",
   "keywords": [
